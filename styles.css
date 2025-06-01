@@ -1,0 +1,403 @@
+* {
+    padding: 0;
+    margin: 0;
+    direction: rtl;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.header {
+    background-color: #17b289;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 3%;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+}
+
+img {
+    height: 80;
+    width: 200;
+}
+
+.header ul {
+    display: flex;
+    list-style-type: none;
+    color: white;
+
+}
+
+.header ul li {
+    width: 100;
+    margin-left: 40;
+    text-align: center;
+    padding-top: 10;
+    padding-bottom: 10;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    border-radius: 10px;
+
+
+}
+
+.header ul li:hover {
+    width: 100;
+    background-color: white;
+    color: #17b289;
+    transform: scale(1.1);
+
+}
+
+.section1 {
+    margin-top: 10;
+    display: flex;
+}
+
+.section1txt {
+    flex: 1.5;
+    padding-left: 20%;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding-right: 3%;
+}
+
+.txtinfo {
+    font-size: 50px;
+    /* أضف px هنا */
+    animation: fadeInUp 1.5s ease-in-out forwards;
+    opacity: 0;
+    line-height: 8vh;
+}
+
+/* تعريف الحركة */
+@keyframes fadeInUp {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translateY(15px);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.imgview {
+    background-color: rgb(29, 179, 142);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 67% 33% 70% 30% / 30% 30% 70% 70%;
+    height: 500;
+    flex: 1;
+    margin-left: 20px;
+
+}
+
+.img2 {
+    width: 80%;
+    height: 80%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.slideshow-container {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    height: 100vh;
+}
+
+.slider1 {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/person.jpg') fixed;
+    z-index: -1;
+    object-fit: fill;
+
+
+}
+
+.slider2 {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/carsoul1.jpg') fixed;
+    z-index: -1;
+    object-fit: fill;
+}
+
+.slider3 {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/carsoul2.jpg') fixed;
+    z-index: -1;
+    object-fit: fill;
+
+}
+
+.slideshow-container img {
+    resize: both;
+    object-fit: fill;
+
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.slide {
+    background-attachment: fixed;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.slide-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.slide-content h2 {
+    margin-bottom: 10px;
+}
+
+.active,
+.dot:hover {
+    background-color: rgb(12, 161, 124);
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.txthead {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    margin: auto;
+    align-self: center;
+    text-align: center;
+    color: #2c3e50;
+    font-size: 100px;
+}
+
+.maincourses {
+    width: "98%";
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    direction: rtl;
+    color: #333;
+    margin-top: 10vh;
+    padding-bottom: 2vh;
+    margin-bottom: 5vh;
+    padding-top: 5vh;
+}
+
+.courses {
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10;
+    text-align: start;
+    justify-content: start;
+    margin-bottom: 5vh;
+}
+
+.card {
+    max-width: 700px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 5px 30px;
+    line-height: 1.6;
+    font-family: 'Arial', sans-serif;
+    direction: rtl;
+    color: #333;
+    margin-left: 5px;
+}
+
+.card2 {
+    width: 93%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 25px 30px;
+    line-height: 1.6;
+    font-family: 'Arial', sans-serif;
+    direction: rtl;
+    color: #333;
+    margin: auto;
+    margin-bottom: 3vh;
+}
+
+.card h1,
+.card2 h1 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+.card p,
+.card ul,
+.card2 p,
+.card2 ul {
+    font-size: 16px;
+}
+
+.card ul {
+    list-style: none;
+    padding-right: 0;
+}
+
+.card ul li {
+    margin-bottom: 8px;
+    padding-right: 25px;
+    position: relative;
+}
+
+.card ul li::before {
+    content: '✅';
+    position: absolute;
+    right: 0;
+    color: #27ae60;
+}
+
+.card .highlight,
+.card2 .highlight {
+    background-color: #eaf8ea;
+    border-right: 5px solid #27ae60;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.maincourses .highlight {
+    background-color: #eaf8ea;
+    border-right: 5px solid #27ae60;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-right: 1vw;
+    width: 96%;
+}
+
+.card .phone {
+    font-weight: bold;
+    color: #2980b9;
+}
+
+.card .important {
+    color: #c0392b;
+    font-weight: bold;
+}
