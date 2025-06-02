@@ -60,7 +60,7 @@ document.querySelectorAll('.dot').forEach(dot => {
 const observerOptions = {
     root: null, // viewport
     rootMargin: '0px',
-    threshold: 0.2 // العنصر يظهر بنسبة 20% على الأقل لتفعيل الأنميشن
+    threshold: 0.1 // قللي القيمة لتفعيل أسرع (مثلاً 0.1 بدلاً من 0.2)
 };
 
 const observer = new IntersectionObserver((entries, observer) => {
@@ -79,4 +79,17 @@ const sectionsToAnimate = document.querySelectorAll(
 
 sectionsToAnimate.forEach(section => {
     observer.observe(section);
+});
+
+// **إضافة هذا الجزء الجديد:**
+// تحقق من العناصر المرئية بالفعل عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    sectionsToAnimate.forEach(section => {
+        // إذا كان العنصر مرئيًا بالفعل (أو جزء منه)، قم بتفعيله مباشرة
+        if (section.getBoundingClientRect().top < window.innerHeight && section.getBoundingClientRect().bottom > 0) {
+            section.classList.add('visible');
+            // يمكنك إزالة العنصر من المراقبة هنا إذا أردت
+            // observer.unobserve(section);
+        }
+    });
 });
