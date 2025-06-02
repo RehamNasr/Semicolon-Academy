@@ -1,29 +1,22 @@
 let slideIndex = 1;
-let slideTimer; // متغير لتخزين مؤقت التغيير التلقائي
-
 showSlides(slideIndex);
-startAutoSlide(); // بدء التغيير التلقائي عند تحميل الصفحة
 
+// Next/previous controls
 function plusSlides(n) {
-    clearTimeout(slideTimer); // مسح المؤقت الحالي عند التغيير اليدوي
     showSlides(slideIndex += n);
-    startAutoSlide(); // إعادة بدء المؤقت بعد التغيير اليدوي
 }
 
+// Thumbnail image controls
 function currentSlide(n) {
-    clearTimeout(slideTimer); // مسح المؤقت الحالي عند التغيير اليدوي
     showSlides(slideIndex = n);
-    startAutoSlide(); // إعادة بدء المؤقت بعد التغيير اليدوي
 }
 
 function showSlides(n) {
     let i;
-    let slides = document.getElementsByClassName("mySlides"); // تغيير الكلاس إلى mySlides
+    let slides = document.getElementsByClassName("mySlides");
     let dots = document.getElementsByClassName("dot");
-
     if (n > slides.length) { slideIndex = 1 }
     if (n < 1) { slideIndex = slides.length }
-
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
@@ -32,23 +25,58 @@ function showSlides(n) {
     }
     slides[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active";
+
+    // إضافة أنيميشن "fade-in" عند عرض الشريحة
+    slides[slideIndex - 1].classList.remove('fade-in'); // إزالة لتشغيلها مرة أخرى
+    void slides[slideIndex - 1].offsetWidth; // إعادة تشغيل الأنميشن
+    slides[slideIndex - 1].classList.add('fade-in');
 }
 
-function startAutoSlide() {
-    slideTimer = setTimeout(() => {
-        plusSlides(1); // تغيير الشريحة كل 5 ثوانٍ
-    }, 5000);
-}
+// التحكم التلقائي بالسلايدر
+let autoSlideInterval = setInterval(() => {
+    plusSlides(1);
+}, 5000); // كل 5 ثوانٍ
 
-// Fixed Header functionality (اختياري، يمكن إضافته لجعل الهيدر يتقلص عند التمرير)
-window.onscroll = function() { scrollFunction() };
+// إيقاف التمرير التلقائي عند التفاعل مع الأزرار
+document.querySelector('.prev').addEventListener('click', () => {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => { plusSlides(1); }, 5000);
+});
 
-function scrollFunction() {
-    if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-        document.querySelector(".header").style.padding = "10px 3%";
-        document.querySelector(".header .logo img").style.height = "60px";
-    } else {
-        document.querySelector(".header").style.padding = "15px 3%";
-        document.querySelector(".header .logo img").style.height = "70px";
-    }
-}
+document.querySelector('.next').addEventListener('click', () => {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => { plusSlides(1); }, 5000);
+});
+
+document.querySelectorAll('.dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(() => { plusSlides(1); }, 5000);
+    });
+});
+
+
+// Intersection Observer for scroll-reveal animations
+const observerOptions = {
+    root: null, // viewport
+    rootMargin: '0px',
+    threshold: 0.2 // العنصر يظهر بنسبة 20% على الأقل لتفعيل الأنميشن
+};
+
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // توقف المراقبة بعد ظهور العنصر مرة واحدة
+        }
+    });
+}, observerOptions);
+
+// العناصر التي نريد تطبيق تأثير الظهور عليها
+const sectionsToAnimate = document.querySelectorAll(
+    '.about-section, .main-courses, .course-card, .about-us-section, .contact-section, .footer'
+);
+
+sectionsToAnimate.forEach(section => {
+    observer.observe(section);
+});

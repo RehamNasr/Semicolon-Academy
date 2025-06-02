@@ -45,7 +45,7 @@ body {
 
 /* --- Header Section --- */
 .header {
-    background-color: rgba(73, 187, 159, 0.9);
+    background-color: var(--primary-color);
     /* شفافية بسيطة للخلفية */
     display: flex;
     align-items: center;
@@ -55,6 +55,8 @@ body {
     z-index: 1000;
     width: 100%;
     box-shadow: var(--card-shadow);
+    /* إضافة أنيميشن عند التحميل */
+    animation: slideInDown 0.8s ease-out forwards;
 }
 
 .header .logo img {
@@ -85,12 +87,12 @@ body {
 .header nav ul li a:hover {
     background-color: white;
     color: var(--primary-color);
-    transform: scale(1.1);
+    transform: scale(1.1); /* تكبير بسيط عند التحويم */
 }
 
 /* --- Hero Slider Section --- */
 .hero-slider {
-    padding-top: 80px;
+    padding-top: 10vh;
     /* لتجنب تداخل الهيدر مع السلايدر */
 }
 
@@ -118,8 +120,11 @@ body {
     filter: brightness(60%);
     /* تعتيم خفيف للخلفية */
     z-index: -1;
-    transition: opacity 1.5s ease-in-out;
-    /* إضافة انتقال سلس */
+    transition: opacity 1.5s ease-in-out, transform 0.5s ease-out; /* إضافة انتقال سلس للخلفية */
+}
+
+.mySlides.fade-in .slider-bg {
+    animation: zoomEffect 8s infinite alternate; /* حركة تكبير وتصغير للخلفية */
 }
 
 .slider1 {
@@ -156,6 +161,9 @@ body {
     text-align: center;
     border-radius: 10px;
     box-shadow: var(--card-shadow);
+    opacity: 0; /* إخفاء مبدئي للمحتوى */
+    animation: fadeInScale 1s ease-out forwards; /* أنيميشن ظهور وتكبير */
+    animation-delay: 0.5s; /* تأخير ظهور المحتوى */
 }
 
 .slide-content h2 {
@@ -212,6 +220,7 @@ body {
 .prev:hover,
 .next:hover {
     background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1); /* تكبير الأسهم عند التحويم */
 }
 
 .dot {
@@ -222,12 +231,13 @@ body {
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
-    transition: background-color 0.6s ease;
+    transition: background-color 0.6s ease, transform 0.3s ease; /* إضافة انتقال للتحويل */
 }
 
 .active,
 .dot:hover {
     background-color: var(--primary-color);
+    transform: scale(1.2); /* تكبير النقطة عند التحديد أو التحويم */
 }
 
 .fade {
@@ -258,6 +268,15 @@ body {
     box-shadow: var(--card-shadow);
     border-radius: 15px;
     margin: 50px 2%;
+    opacity: 0; /* إخفاء مبدئي للعنصر */
+    transform: translateY(50px); /* تحريك لأسفل مبدئياً */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* عند إضافة الكلاس "visible" بواسطة JavaScript */
+.about-section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .section-content {
@@ -288,6 +307,7 @@ body {
     width: 400px;
     overflow: hidden;
     box-shadow: var(--card-shadow);
+    animation: rotateAndScale 3s ease-in-out infinite alternate; /* أنيميشن دوران وتكبير */
 }
 
 .section-image img {
@@ -309,6 +329,49 @@ body {
     }
 }
 
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+@keyframes zoomEffect {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes rotateAndScale {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(5deg) scale(1.03);
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}
+
 /* --- Courses Section --- */
 .main-courses {
     width: 96%;
@@ -318,6 +381,14 @@ body {
     box-shadow: var(--card-shadow);
     padding: 40px 30px;
     text-align: center;
+    opacity: 0; /* إخفاء مبدئي */
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.main-courses.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .section-heading {
@@ -363,12 +434,20 @@ body {
     flex-direction: column;
     justify-content: space-between;
     /* توزيع المحتوى بالتساوي */
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* إضافة انتقال لظل الصندوق */
+    opacity: 0; /* إخفاء مبدئي */
+    transform: translateY(30px);
+}
+
+.course-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .course-card:hover {
     transform: translateY(-10px);
     /* تأثير بسيط عند التحويم */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* ظل أوضح عند التحويم */
 }
 
 .course-card h1 {
@@ -426,6 +505,7 @@ body {
     margin: 20px 0;
     border-radius: 8px;
     font-size: 1.1em;
+    animation: pulseBorder 2s infinite alternate; /* أنيميشن نبض للحدود */
 }
 
 .highlight-title {
@@ -465,6 +545,14 @@ body {
     box-shadow: var(--card-shadow);
     padding: 40px;
     text-align: right;
+    opacity: 0; /* إخفاء مبدئي */
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.about-us-section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .about-us-section p {
@@ -482,6 +570,14 @@ body {
     box-shadow: var(--card-shadow);
     padding: 40px;
     text-align: right;
+    opacity: 0; /* إخفاء مبدئي */
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.contact-section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .contact-buttons {
@@ -490,6 +586,7 @@ body {
     gap: 20px;
     margin-top: 30px;
     margin-bottom: 40px;
+    flex-wrap: wrap; /* للسماح للأزرار بالالتفاف */
 }
 
 .contact-buttons a {
@@ -503,6 +600,9 @@ body {
     color: white;
     transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-grow: 1; /* للسماح للأزرار بالتمدد */
+    max-width: 250px; /* تحديد أقصى عرض للزر */
+    justify-content: center; /* توسيط المحتوى داخل الزر */
 }
 
 .contact-buttons a i {
@@ -556,6 +656,14 @@ body {
     font-size: 0.95em;
     line-height: 1.8;
     text-align: right;
+    opacity: 0; /* إخفاء مبدئي */
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.footer.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .footer-content {
@@ -628,7 +736,7 @@ body {
 
 .footer-section .social-icons a:hover {
     color: var(--primary-color);
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.1); /* تأثير أكبر عند التحويم */
 }
 
 .footer-section p i {
@@ -676,7 +784,7 @@ body {
     font-weight: bold;
     font-size: 1.2em;
     text-align: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 15px;
     /* مسافة من الأعلى */
@@ -685,6 +793,7 @@ body {
 .whatsapp-booking-btn:hover {
     background-color: #128C7E;
     transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .whatsapp-booking-btn .phone {
@@ -699,16 +808,7 @@ body {
 }
 
 .txtphone {
-    color: #128C7E;
-}
-
-.facebook-btn {
-    background-color: #1877F2;
-}
-
-.facebook-btn:hover {
-    background-color: #165be0;
-    transform: translateY(-5px);
+    color: #128C7E; /* هذا اللون يتعارض مع الخلفية في الفوتر، يمكن تعديله إذا لزم الأمر */
 }
 
 /* تنسيقات أزرار اليوتيوب والتيك توك الجديدة */
@@ -764,6 +864,22 @@ body {
     text-align: center;
 }
 
+/* أنيميشن إضافي للحدود المنبضية */
+@keyframes pulseBorder {
+    0% {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 5px rgba(23, 178, 137, 0.5);
+    }
+    50% {
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 15px rgba(73, 187, 159, 0.7);
+    }
+    100% {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 5px rgba(23, 178, 137, 0.5);
+    }
+}
+
 /* --- Responsive Design (Media Queries) --- */
 @media (max-width: 1024px) {
     .header nav ul li {
@@ -809,9 +925,8 @@ body {
 
     .footer-section h3::after {
         left: 50%;
-        transform: translateX(-80%);
-        right: 25vw;
-
+        transform: translateX(-50%); /* تصحيح لتوسيط الخط */
+        right: auto; /* إلغاء الخاصية الأصلية */
     }
 }
 
@@ -931,5 +1046,9 @@ body {
 
     .footer-section .social-icons a {
         font-size: 1.5em;
+    }
+    .hero-slider{
+            padding-top: 28vh;
+
     }
 }
