@@ -42,7 +42,15 @@ body {
     background-color: #f8f8f8;
     /* لون خلفية أفتح قليلاً */
 }
+a{
+    text-decoration: none;
+    color: #000000;
+}
+.footer-section   a{
+    color: #ffffff;
 
+
+}
 /* --- Header Section --- */
 .header {
     background-color: var(--primary-color);
@@ -1001,7 +1009,7 @@ body {
 
 @media (max-width: 480px) {
     .header .logo img {
-        height: 60px;
+        height: 100px;
     }
 
     .header nav ul li a {
