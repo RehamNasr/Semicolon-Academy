@@ -60,7 +60,7 @@ document.querySelectorAll('.dot').forEach(dot => {
 const observerOptions = {
     root: null, // viewport
     rootMargin: '0px',
-    threshold: 0.1 // قللي القيمة لتفعيل أسرع (مثلاً 0.1 بدلاً من 0.2)
+    threshold: 0.01 // قللي القيمة لتفعيل أسرع (مثلاً 0.1 بدلاً من 0.2)
 };
 
 const observer = new IntersectionObserver((entries, observer) => {
