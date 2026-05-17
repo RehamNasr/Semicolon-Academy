@@ -9,22 +9,49 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Playfair+Display:wght@700;900&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     :root {
-      --black: #0d0d0d;
-      --black2: #161616;
-      --card: #1a1a1a;
-      --card2: #222;
-      --red: #c0392b;
-      --red2: #e74c3c;
-      --gold: #d4a017;
-      --gold2: #f0c040;
-      --gold3: #fde68a;
-      --white: #f5f0e8;
-      --muted: #9a9a9a;
-      --border: rgba(212, 160, 23, 0.2);
-      --border-red: rgba(192, 57, 43, 0.25);
+      /* Base Theme Variables - Default to Premium Dark Mode */
+      --black: #0a0a0c;
+      --black2: #111115;
+      --card: #16161f;
+      --card2: #1f1f2a;
+      --red: #d32f2f;
+      --red2: #ff4d4d;
+      --gold: #ffa500;
+      --gold2: #ffb700;
+      --gold3: #ffe680;
+      --white: #f8f9fa;
+      --muted: #a0a2b3;
+      --border: rgba(255, 165, 0, 0.25);
+      --border-red: rgba(211, 47, 47, 0.3);
+      --nav-bg: rgba(10, 10, 12, 0.88);
+      --text: #f8f9fa;
+      --bg: #0a0a0c;
+      --transition-speed: 0.3s;
     }
+
+    :root.light-mode {
+      /* Base Theme Variables - Premium Light Mode */
+      --black: #f8f9fa;
+      --black2: #ffffff;
+      --card: #ffffff;
+      --card2: #f1f3f5;
+      --red: #c92a2a;
+      --red2: #e03131;
+      --gold: #e67e22;
+      --gold2: #f0a500;
+      --gold3: #ffd43b;
+      --white: #1a1b1e;
+      --muted: #5c5f66;
+      --border: rgba(240, 165, 0, 0.25);
+      --border-red: rgba(224, 49, 49, 0.2);
+      --nav-bg: rgba(248, 249, 250, 0.92);
+      --text: #1a1b1e;
+      --bg: #f8f9fa;
+    }
+
 
     *,
     *::before,
@@ -44,6 +71,7 @@
       color: var(--white);
       overflow-x: hidden;
       direction: rtl;
+      transition: background var(--transition-speed), color var(--transition-speed);
     }
 
     /* ─── ANIMATED BG CANVAS ─── */
@@ -65,9 +93,10 @@
       align-items: center;
       justify-content: space-between;
       padding: .9rem 2.5rem;
-      background: rgba(13, 13, 13, 0.88);
+      background: var(--nav-bg);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
+      transition: background var(--transition-speed), border-color var(--transition-speed);
     }
 
     .nav-logo-img {
@@ -242,7 +271,7 @@
     .hero h1 {
       font-size: clamp(2.6rem, 7vw, 5rem);
       font-weight: 900;
-      line-height: 1.1;
+      line-height: 1.45;
       margin-bottom: 1.4rem;
     }
 
@@ -1166,7 +1195,216 @@
       color: var(--muted);
       display: block;
     }
+
+    /* ─── MOBILE NAV OPEN ─── */
+    @media(max-width:768px) {
+      .nav-links.open {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed;
+        top: 70px;
+        right: 0;
+        left: 0;
+        background: var(--nav-bg);
+        backdrop-filter: blur(20px);
+        padding: 2rem;
+        gap: 1.5rem;
+        z-index: 199;
+        border-bottom: 1px solid var(--border);
+        animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      .nav-actions {
+        order: 2;
+        margin-left: 1rem;
+      }
+
+      .burger {
+        order: 3;
+      }
+
+      .nav-logo-img {
+        order: 1;
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ─── THEME TOGGLE BUTTON ─── */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .theme-toggle-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--white);
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 0;
+    }
+
+    .theme-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.08) rotate(15deg);
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px var(--border);
+    }
+
+    .theme-icon {
+      width: 20px;
+      height: 20px;
+      stroke: var(--white);
+      fill: none;
+      transition: stroke 0.3s, transform 0.5s ease;
+    }
+
+    .light-mode .theme-toggle-btn {
+      background: rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-color: var(--border);
+    }
+
+    .light-mode .theme-toggle-btn:hover {
+      background: rgba(0, 0, 0, 0.08);
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(240, 165, 0, 0.15);
+    }
+
+    .light-mode .theme-icon {
+      stroke: var(--white);
+    }
+
+    /* --- Custom Course Cover Styles --- */
+    .course-image-wrapper {
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      position: relative;
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+    }
+
+    .course-card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .course-card:hover .course-card-image {
+      transform: scale(1.08);
+    }
+
+    /* --- custom view-all reviews button --- */
+    .btn-reviews-more {
+      display: inline-flex;
+      align-items: center;
+      background: transparent;
+      color: var(--gold2);
+      border: 2px solid var(--border);
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-reviews-more:hover {
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      color: #0c0c0e;
+      border-color: transparent;
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 8px 25px rgba(212, 160, 23, 0.35);
+    }
+
+    /* Custom visible divider inside testimonial qa in light mode */
+    .light-mode .testi-body .qa {
+      border-bottom: 1px solid rgba(128, 128, 128, 0.15) !important;
+    }
+
+    /* ─── MOTIVATIONAL TICKER ─── */
+    .motivational-ticker {
+      background: linear-gradient(90deg, rgba(192, 57, 43, 0.08), rgba(212, 160, 23, 0.08));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    .ticker-wrap {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker-slide 35s linear infinite;
+      gap: 3.5rem;
+      width: max-content;
+      padding-right: 100%;
+    }
+
+    .ticker-item {
+      font-size: 1.1rem;
+      color: var(--white);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ticker-item span.emoji {
+      font-size: 1.3rem;
+    }
+
+    @keyframes ticker-slide {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+
+      100% {
+        transform: translate3d(-100%, 0, 0);
+      }
+    }
+
+    .motivational-ticker:hover .ticker-wrap {
+      animation-play-state: paused;
+    }
+
+    /* ─── FACEBOOK REVIEWS BUTTON ─── */
+    .btn-facebook-reviews:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 25px rgba(24, 119, 242, 0.5) !important;
+      background: linear-gradient(135deg, #1982fc, #1877F2) !important;
+    }
   </style>
+  <!-- FOUC Prevention for Theme Switcher -->
+  <script>
+    if (localStorage.getItem('theme') !== 'dark') {
+      document.documentElement.classList.add('light-mode');
+    }
+  </script>
 </head>
 
 <body>
@@ -1196,7 +1434,23 @@
       <li><a href="#about">من نحن</a></li>
       <li><a href="#contact">تواصل</a></li>
     </ul>
-    <a class="nav-cta" href="https://wa.me/201221315065" target="_blank">احجز الآن</a>
+    <div class="nav-actions">
+      <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <a class="nav-cta" href="https://wa.me/201221315065" target="_blank">احجز الآن</a>
+    </div>
     <button class="burger" id="burger">☰</button>
   </nav>
 
@@ -1227,6 +1481,25 @@
 
   <div class="divider"></div>
 
+  <!-- MOTIVATIONAL TICKER -->
+  <div class="motivational-ticker">
+    <div class="ticker-wrap">
+      <div class="ticker-item">البرمجة ليست مجرد كود، بل هي القدرة على تغيير العالم!</div>
+      <div class="ticker-item">كل سطر كود تكتبه اليوم يقربك خطوة نحو مستقبل واعد!</div>
+      <div class="ticker-item">الأخطاء هي ببساطة فرصة للتعلم والبدء من جديد بذكاء أكبر!</div>
+      <div class="ticker-item">استثمر في عقلك اليوم لتكون قائد الغد في عالم التكنولوجيا!</div>
+      <div class="ticker-item">رحلة الألف ميل تبدأ بكتابة أول سطر كود!</div>
+      <div class="ticker-item">مع Semicolon Academy، التعلم متعة وتطبيق عملي حقيقي!</div>
+      <!-- Duplicate items for endless carousel loop -->
+      <div class="ticker-item">البرمجة ليست مجرد كود، بل هي القدرة على تغيير العالم!</div>
+      <div class="ticker-item">كل سطر كود تكتبه اليوم يقربك خطوة نحو مستقبل واعد!</div>
+      <div class="ticker-item">الأخطاء هي ببساطة فرصة للتعلم والبدء من جديد بذكاء أكبر!</div>
+      <div class="ticker-item">استثمر في عقلك اليوم لتكون قائد الغد في عالم التكنولوجيا!</div>
+      <div class="ticker-item">رحلة الألف ميل تبدأ بكتابة أول سطر كود!</div>
+      <div class="ticker-item">مع Semicolon Academy، التعلم متعة وتطبيق عملي حقيقي!</div>
+    </div>
+  </div>
+
   <!-- STATS -->
   <div class="stats-bar">
     <div class="stats-inner">
@@ -1253,7 +1526,7 @@
   <section id="courses">
     <div class="container">
       <div class="fade-up" style="text-align:center;max-width:580px;margin:0 auto 1rem;">
-        <div class="section-tag">// الكورسات</div>
+
         <h2 class="section-title">برامجنا التعليمية</h2>
         <p class="section-sub" style="margin:0 auto;">كورسات مصممة بعناية لكل فئة عمرية، من الأطفال الصغار حتى الكبار
         </p>
@@ -1261,9 +1534,13 @@
       <div class="courses-grid">
         <!-- SCRATCH -->
         <div class="course-card fade-up">
-          <div class="course-header">
+          <div class="course-image-wrapper">
             <span class="course-badge badge-gold">للأطفال</span>
-            <span class="course-icon">🎮</span>
+            <img src="https://i.pinimg.com/736x/47/00/9d/47009d22eedcf24e8a3e4a417667f5b1.jpg"
+              alt="Scratch Coding for Kids" class="course-card-image">
+          </div>
+          <div class="course-header">
+
             <div class="course-title">برمجة الأطفال بـ Scratch</div>
             <div class="course-tagline">تعلّم البرمجة بطريقة ممتعة عبر تصميم الألعاب والرسوم المتحركة</div>
           </div>
@@ -1298,9 +1575,13 @@
         </div>
         <!-- BEGINNERS -->
         <div class="course-card featured fade-up">
-          <div class="course-header">
+          <div class="course-image-wrapper">
             <span class="course-badge badge-red">الأكثر طلباً</span>
-            <span class="course-icon">💻</span>
+            <img src="https://i.pinimg.com/736x/e1/2f/93/e12f9308fd891cb970e280dbadff92d2.jpg"
+              alt="Programming for Beginners" class="course-card-image">
+          </div>
+          <div class="course-header">
+
             <div class="course-title">البرمجة للمبتدئين</div>
             <div class="course-tagline">من الصفر لأول مشروع حقيقي – HTML & CSS & C#</div>
           </div>
@@ -1336,9 +1617,13 @@
         </div>
         <!-- COMPUTER -->
         <div class="course-card fade-up">
-          <div class="course-header">
+          <div class="course-image-wrapper">
             <span class="course-badge badge-grey">للجميع</span>
-            <span class="course-icon">🖥️</span>
+            <img src="https://i1-e.pinimg.com/1200x/6f/12/27/6f1227d10363fdff003441d423a0165d.jpg" alt="Computer Basics"
+              class="course-card-image">
+          </div>
+          <div class="course-header">
+
             <div class="course-title">أساسيات الكمبيوتر والإنترنت</div>
             <div class="course-tagline">دورة شاملة للمبتدئين في التعامل مع التكنولوجيا وبرامج الأوفيس</div>
           </div>
@@ -1381,7 +1666,7 @@
   <section id="gallery" style="background:var(--black2);">
     <div class="container">
       <div class="fade-up" style="text-align:center;max-width:580px;margin:0 auto 0;">
-        <div class="section-tag">// معرض الصور</div>
+
         <h2 class="section-title">طلابنا المتميزون</h2>
         <p class="section-sub" style="margin:0 auto 0;">لحظات التخرج والإنجاز – كل صورة قصة نجاح حقيقية 🎓</p>
       </div>
@@ -1499,7 +1784,7 @@
   <section id="testimonials">
     <div class="container">
       <div class="fade-up" style="text-align:center;max-width:580px;margin:0 auto 0;">
-        <div class="section-tag">// آراء الطلبة</div>
+
         <h2 class="section-title">ماذا يقول طلابنا؟</h2>
         <p class="section-sub" style="margin:0 auto 0;">آراء حقيقية من طلابنا الذين بدأوا رحلتهم في عالم البرمجة معنا 🚀
         </p>
@@ -1557,6 +1842,12 @@
           </div>
         </div>
       </div>
+      <div style="text-align: center; margin-top: 3.5rem;" class="fade-up">
+        <a href="https://www.facebook.com/profile.php?id=61569834729564&sk=reviews" target="_blank"
+          class="btn-reviews-more">
+          <i class="fa-brands fa-facebook-f" style="margin-left: 8px;"></i> عرض الكل
+        </a>
+      </div>
     </div>
   </section>
 
@@ -1567,25 +1858,25 @@
   <section id="why">
     <div class="container">
       <div class="fade-up" style="text-align:center;max-width:560px;margin:0 auto 3.5rem;">
-        <div class="section-tag">// لماذا نحن</div>
+
         <h2 class="section-title">ما يميز Semicolon Academy</h2>
       </div>
       <div class="why-grid">
-        <div class="why-card fade-up"><span class="why-icon">🎯</span>
+        <div class="why-card fade-up">
           <div class="why-title">تعليم عملي وتطبيقي</div>
           <div class="why-text">مش بس نظرية – بنشتغل مع الطلاب على مشاريع حقيقية من اليوم الأول لحد ما يبنوا مشاريعهم
             بإيدهم</div>
         </div>
-        <div class="why-card fade-up"><span class="why-icon">👩‍🏫</span>
+        <div class="why-card fade-up">
           <div class="why-title">مدربون متخصصون</div>
           <div class="why-text">فريق من المدربين ذوي الخبرة بيستخدموا أحدث الطرق التفاعلية في الشرح بشكل مبسط وممتع
           </div>
         </div>
-        <div class="why-card fade-up"><span class="why-icon">🧒</span>
+        <div class="why-card fade-up">
           <div class="why-title">مناسب لكل الأعمار</div>
           <div class="why-text">كورسات مخصصة من سن 7 سنين وحتى الكبار – أسلوب مختلف يناسب كل مرحلة عمرية</div>
         </div>
-        <div class="why-card fade-up"><span class="why-icon">🏆</span>
+        <div class="why-card fade-up">
           <div class="why-title">شهادة + هدية عند التخرج</div>
           <div class="why-text">كل طالب يكمل الكورس بنجاح بياخد شهادة إنجاز رسمية وهدية مميزة تحفيزاً على التفوق</div>
         </div>
@@ -1608,7 +1899,7 @@
           </div>
         </div>
         <div class="about-text fade-left">
-          <div class="section-tag">// من نحن</div>
+
           <h2 class="section-title">نحن Semicolon Academy</h2>
           <p>نحن فريق متخصص في <strong>تعليم البرمجة والتكنولوجيا</strong> للأطفال والمبتدئين، هدفنا إننا نوصل المعلومة
             بشكل <strong>ممتع ومبسط وتفاعلي</strong> يناسب كل فئة عمرية.</p>
@@ -1620,7 +1911,7 @@
               <div class="loc-detail">
                 <div class="loc-name">زفتى – محافظة الغربية</div>
                 <div class="loc-addr">شارع درب المعمل من سعد زغلول، سابع عمارة</div>
-                <div class="loc-phone">📞 01221315065 &nbsp;|&nbsp; 01158659437</div>
+                <div class="loc-phone">01221315065 &nbsp;|&nbsp; 01158659437</div>
               </div>
             </div>
             <div class="loc-item">
@@ -1628,11 +1919,17 @@
               <div class="loc-detail">
                 <div class="loc-name">ميت غمر – محافظة الدقهلية</div>
                 <div class="loc-addr">للاستفسار تواصل عبر واتساب</div>
-                <div class="loc-phone">📞 01221315065 &nbsp;|&nbsp; 01158659437</div>
+                <div class="loc-phone">01221315065 &nbsp;|&nbsp; 01158659437</div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div style="text-align: center; margin-top: 3.5rem;" class="fade-up">
+        <a href="https://www.facebook.com/profile.php?id=61569834729564&sk=reviews" target="_blank"
+          class="btn-reviews-more">
+          <i class="fa-brands fa-facebook-f" style="margin-left: 8px;"></i> عرض الكل
+        </a>
       </div>
     </div>
   </section>
@@ -1641,19 +1938,24 @@
   <section id="contact">
     <div class="container">
       <div class="contact-section fade-up">
-        <div class="section-tag" style="text-align:center;">// اتصل بنا</div>
+
         <h2 class="section-title">تواصل معنا الآن</h2>
         <p style="color:var(--muted);margin-top:.7rem;">الأماكن محدودة – احجز مكانك قبل امتلاء الكورس</p>
         <div class="contact-grid">
-          <a href="https://wa.me/201221315065" target="_blank" class="cbtn cbtn-wa">💬 واتساب</a>
-          <a href="https://www.facebook.com/profile.php?id=61569834729564" target="_blank" class="cbtn cbtn-fb">📘
-            فيسبوك</a>
-          <a href="https://www.youtube.com/@semicolon9252" target="_blank" class="cbtn cbtn-yt">▶️ يوتيوب</a>
-          <a href="https://www.tiktok.com/@semicolon.academy" target="_blank" class="cbtn cbtn-tk">🎵 تيك توك</a>
+          <a href="https://wa.me/201221315065" target="_blank" class="cbtn cbtn-wa"><i
+              class="fa-brands fa-whatsapp fa-lg" style="margin-left: 6px;"></i> واتساب</a>
+          <a href="https://www.facebook.com/profile.php?id=61569834729564" target="_blank" class="cbtn cbtn-fb"><i
+              class="fa-brands fa-facebook-f fa-lg" style="margin-left: 6px;"></i> فيسبوك</a>
+          <a href="https://www.youtube.com/@semicolon9252" target="_blank" class="cbtn cbtn-yt"><i
+              class="fa-brands fa-youtube fa-lg" style="margin-left: 6px;"></i> يوتيوب</a>
+          <a href="https://www.tiktok.com/@semicolon.academy" target="_blank" class="cbtn cbtn-tk"><i
+              class="fa-brands fa-tiktok fa-lg" style="margin-left: 6px;"></i> تيك توك</a>
         </div>
         <div class="phone-row">
-          <div class="phone-item">📞 <a href="tel:+201221315065">01221315065</a></div>
-          <div class="phone-item">📞 <a href="tel:+201158659437">01158659437</a></div>
+          <div class="phone-item"><i class="fa-solid fa-phone" style="color: var(--gold); margin-left: 6px;"></i> <a
+              href="tel:+201221315065">01221315065</a></div>
+          <div class="phone-item"><i class="fa-solid fa-phone" style="color: var(--gold); margin-left: 6px;"></i> <a
+              href="tel:+201158659437">01158659437</a></div>
         </div>
       </div>
     </div>
@@ -1661,7 +1963,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 <span class="g">Semicolon</span><span class="r">;</span><span class="g">Academy</span> – جميع الحقوق
+    <p>© 2024 <span class="g">Semicolon</span><span class="r">;</span><span class="g">Academy</span> – جميع الحقوق
       محفوظة &nbsp;|&nbsp; صُنع بـ ❤️</p>
   </footer>
 
@@ -1756,6 +2058,44 @@
     });
     function closeLb() { document.getElementById('lb').classList.remove('active'); }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+    /* ── THEME SWITCHER SNIPPET ── */
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const rootElement = document.documentElement;
+
+    function updateThemeIcon(isLight) {
+      if (isLight) {
+        themeToggleBtn.innerHTML = `
+          <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        `;
+      } else {
+        themeToggleBtn.innerHTML = `
+          <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        `;
+      }
+    }
+
+    // Initialize theme icon
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    updateThemeIcon(currentTheme === 'light');
+
+    themeToggleBtn.addEventListener('click', () => {
+      const isLightMode = rootElement.classList.toggle('light-mode');
+      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+      updateThemeIcon(isLightMode);
+    });
 
     /* ── BURGER NAV ── */
     document.getElementById('burger').addEventListener('click', () => {
